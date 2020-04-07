@@ -17,19 +17,21 @@ $(function () {
 
     $nickForm.submit(e => {
         e.preventDefault();
-        socket.emit('new user', $nickname.val(), data => {
-            if (data) {
-                $('#nickWrap').hide();
-                $('#contentWrap').show();
-            } else {
-                $nickError.html(`
-                        <div class="alert alert-danger">
-                            That username already exists.
-                        </div>
-                    `);
-                $nickname.val('');
-            }
-        });
+        if ($nickname.val() !== '') {
+            socket.emit('new user', $nickname.val(), data => {
+                if (data) {
+                    $('#nickWrap').hide();
+                    $('#contentWrap').show();
+                } else {
+                    $nickError.html(`
+                            <div class="alert alert-danger">
+                                That username already exists.
+                            </div>
+                        `);
+                    $nickname.val('');
+                }
+            });
+        }
     })
 
     //Events
@@ -47,12 +49,12 @@ $(function () {
     });
 
     socket.on('new message', function (data) {
-        if(data.nick ===$nickname.val()) {
+        if (data.nick === $nickname.val()) {
             $chat.append(`<p class="transmitter"><b>Tú: </b>${data.msg}</p>`);
         } else {
             $chat.append(`<b>${data.nick}:</b> ${data.msg}<br/>`);
         }
-        $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
     });
 
     socket.on('usernames', data => {
@@ -67,14 +69,14 @@ $(function () {
         $chat.append(`
         <p class="text-center"><i>${data} se ha conectado</i><br/></p>
         `);
-        $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
     })
 
     socket.on('userdisconnect', data => {
         $chat.append(`
         <p class="text-center"><i>${data} se ha desconectado</i><br/></p>
         `);
-        $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
     })
 
     socket.on('whisper', data => {
@@ -87,14 +89,14 @@ $(function () {
         <p class="whisper"><b>${data.nick} te dice</b>: ${data.msg}</p>
         `)
         }
-        $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+        $('#chat').scrollTop($('#chat').prop('scrollHeight'));
     })
 
-    socket.on('load old msgs', data=> {
-        for(let i =0; i<data.length; i++) {
+    socket.on('load old msgs', data => {
+        for (let i = 0; i < data.length; i++) {
             $chat.append(`<b>${data[i].nick}:</b> ${data[i].msg}<br/>`);
-            
+
         }
     })
-    $('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+    $('#chat').scrollTop($('#chat').prop('scrollHeight'));
 })
