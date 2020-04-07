@@ -1,0 +1,56 @@
+body {
+    background: #283048;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    font-family: 'Gotu', sans-serif;
+    margin: 0;
+    margin-bottom: 40px;
+}
+
+nav {
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* height: 40px; */
+    color: white;
+}
+
+#contentWrap {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+.whisper {
+    color: gray;
+    font-style: italic;
+    ;
+}
+
+#chat p {
+    margin-bottom: 0;
+}
+
+.transmitter {
+    text-align: right;
+}
+
+#chat {
+    overflow-y: scroll;
+}
+
+.user i{
+    color:cadetblue;
+}
